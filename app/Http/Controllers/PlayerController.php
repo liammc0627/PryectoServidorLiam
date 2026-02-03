@@ -37,7 +37,17 @@ class PlayerController extends Controller
         $generatedPlayer->age = $request->input('age');
         $generatedPlayer->position = $request->input('position');
         $generatedPlayer->description = $request->input('description');
-        $generatedPlayer->picture = $request->file('picture')->storeAs('storage/img/players', $generatedPlayer->name,'public');
+        $generatedPlayer->picture = $request->file('picture')->store('img/players','public');
+        $generatedPlayer->twitter = $request->input('twitter');
+        $generatedPlayer->instagram = $request->input('instagram');
+        $generatedPlayer->twitch = $request->input('twitch');
+        if ($request->has('visible')) {
+        $visible = true;
+        } else {
+        $visible = false;
+    }
+    $generatedPlayer->visible = $visible;
+
         $generatedPlayer->save();
         return redirect()->route('players.index');
     }

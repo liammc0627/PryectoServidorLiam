@@ -13,9 +13,15 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50);
-            $table->date('date');
+            $table->string('name',30);
+            $table->date('fecha');
             $table->string('description');
+            $table->string('location');
+            $table->string('map');
+            $table->time('hour');
+            $table->enum('type', ['official', 'exhibition', 'charity'])->default('official');
+            $table->string('tags');
+            $table->boolean('visible')->default(false);
             $table->string('picture');
             $table->timestamps();
         });

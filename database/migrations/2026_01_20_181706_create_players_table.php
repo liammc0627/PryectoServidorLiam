@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50);
+            $table->string('name',30);
             $table->integer('age');
+            $table->string('twitter')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('twitch')->nullable();
             $table->string('position');
             $table->string('description');
-            $table->file('picture');
+            $table->boolean('visible')->default(false);
+            $table->string('picture');
             $table->timestamps();
         });
     }

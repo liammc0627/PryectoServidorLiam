@@ -31,9 +31,21 @@ class EventController extends Controller
     {
         $generatedEvent = new Event();
         $generatedEvent->name = $request->input('name');
-        $generatedEvent->date = $request->input('date');
+        $generatedEvent->date = $request->input('fecha');
         $generatedEvent->description = $request->input('description');
+        $generatedEvent->location = $request->input('location');
+        $generatedEvent->map = $request->input('map');
+        $generatedEvent->hour = $request->input('hour');
+        $generatedEvent->type = $request->input('type');
+        $generatedEvent->tags = $request->input('tags');
+        if ($request->has('visible')) {
+            $visible = true;
+        } else {
+            $visible = false;
+        }
+        $generatedEvent->visible = $visible;
         $generatedEvent->save();
+
         return redirect()->route('events.index');
     }
 
@@ -60,5 +72,4 @@ class EventController extends Controller
     {
         //
     }
-
 }
