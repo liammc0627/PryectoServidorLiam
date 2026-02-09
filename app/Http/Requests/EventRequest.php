@@ -25,6 +25,12 @@ class EventRequest extends FormRequest
             'name' => 'required|min:2|max:30',
             'date' => 'required|after_or_equal:today',
             'description' => 'min:20|max:200',
+            'location' => 'required',
+            'map' => 'required',
+            'hour' => 'required',
+            'type' => 'required|in:match,training,charity',
+            'tags' => 'required',
+            'visible' => 'boolean',
         ];
     }
     public function messages()

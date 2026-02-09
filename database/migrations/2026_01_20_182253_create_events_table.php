@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('name',30);
-            $table->date('fecha');
+            $table->date('date')->nullable();
             $table->string('description');
             $table->string('location');
-            $table->string('map');
+            $table->string('map')->nullable();
             $table->time('hour');
-            $table->enum('type', ['official', 'exhibition', 'charity'])->default('official');
-            $table->string('tags');
+            $table->enum('type', ['match', 'training', 'charity'])->default('match');
+            $table->string('tags')->default('');
             $table->boolean('visible')->default(false);
-            $table->string('picture');
+            $table->string('picture')->nullable();
             $table->timestamps();
         });
     }
