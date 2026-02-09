@@ -22,14 +22,13 @@ class EventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:2|max:30',
+            'name' => 'required|min:2|max:255',
             'date' => 'required|after_or_equal:today',
             'description' => 'min:20|max:200',
             'location' => 'required',
             'map' => 'required',
             'hour' => 'required',
             'type' => 'required|in:match,training,charity',
-            'tags' => 'required',
             'visible' => 'boolean',
         ];
     }
@@ -38,7 +37,7 @@ class EventRequest extends FormRequest
         return[
             'name.required' =>'El nombre del evento es obligatorio',
             'name.min' => 'El nombre del evento tiene que tener mínimo 2 caracteres',
-            'name.max' => 'El nombre del evento tiene que tener máximo 30 caracteres',
+            'name.max' => 'El nombre del evento tiene que tener máximo 255 caracteres',
             'date.required' => 'La fecha del evento es obligatoria',
             'date.after_or_equal' => 'La fecha tiene que ser hoy como pronto',
             'description.min' => 'La descripción tiene que tener mínimo 20 caracteres',

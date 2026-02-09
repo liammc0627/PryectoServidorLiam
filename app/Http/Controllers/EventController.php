@@ -37,7 +37,6 @@ class EventController extends Controller
         $generatedEvent->map = $request->input('map');
         $generatedEvent->hour = $request->input('hour');
         $generatedEvent->type = $request->input('type');
-        $generatedEvent->tags = '';
         if ($request->has('visible')) {
             $visible = true;
         } else {
@@ -82,7 +81,6 @@ class EventController extends Controller
         $event->map = $request->input('map');
         $event->hour = $request->input('hour');
         $event->type = $request->input('type');
-        $event->tags = $event->tags ?? '';
         if ($request->has('visible')) {
             $visible = true;
         } else {
@@ -102,48 +100,6 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $event->delete();
         return redirect()->route('events.index');
-    }
-
-    /**
-     * Toggle like on event
-     */
-    public function toggleLike(string $id)
-    {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
-
-        $event = Event::findOrFail($id);
-        $user = Auth::user();
-
-        if ($user->likedEvents()->where('event_id', $event->id)->exists()) {
-            $user->likedEvents()->detach($event->id);
-        } else {
-            $user->likedEvents()->attach($event->id);
-        }
-
-        return back();
-    }
-
-    /**
-     * Toggle player in event
-     */
-    public function togglePlayer(Request $request, string $id)
-    {
-        if (!Auth::check() || Auth::user()->role !== 'admin') {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-
-        $event = Event::findOrFail($id);
-        $playerId = $request->input('player_id');
-
-        if ($event->players()->where('player_id', $playerId)->exists()) {
-            $event->players()->detach($playerId);
-        } else {
-            $event->players()->attach($playerId);
-        }
-
-        return response()->json(['success' => true]);
     }
 }
 
